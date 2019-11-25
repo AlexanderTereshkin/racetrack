@@ -1,47 +1,65 @@
 package racetrack.entities;
 
-public class Car {
-    private int id;
-    private String brand;
-    private String model;
-    private int enginePower;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-    public Car(int id, String brand, String model, int enginePower) {
+@Entity
+@Table(name="Cars")
+public class Car {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private final Long id;
+
+    @NotNull(message = "You have to specify a brand of this car.")
+    private final String brand;
+
+    @NotNull(message = "You have to specify a model of this car.")
+    private final String model;
+
+    @NotNull(message = "You have to specify a engine power of this car.")
+    private final Float enginePower;
+
+    @OneToOne(targetEntity = Team.class)
+    @NotNull(message = "You have to specify a engine power of this car.")
+    private Team team;
+
+    private Car() {
+        id = null;
+        brand = null;
+        model = null;
+        enginePower = null;
+    }
+
+    public Car(Long id, String brand, String model, Float enginePower, Team team) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.enginePower = enginePower;
+        this.team = team;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getEnginePower() {
+    public Float getEnginePower() {
         return enginePower;
     }
 
-    public void setEnginePower(int enginePower) {
-        this.enginePower = enginePower;
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
