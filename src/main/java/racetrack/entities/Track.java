@@ -1,9 +1,26 @@
 package racetrack.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
+@Entity
 public class Track {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @NotNull(message = "You have to specify a name of this track.")
     private String nameOfTrack;
+
     private TrackStatus trackStatus;
+
+    public Track() {
+        trackStatus = TrackStatus.FREE;
+    }
 
     public Track(int id, String nameOfTrack, TrackStatus trackStatus) {
         this.id = id;
