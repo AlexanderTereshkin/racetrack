@@ -1,27 +1,45 @@
 package racetrack.entities;
 
-public class Racer {
-    private int id;
-    private String name;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-    public Racer(int id, String name) {
+@Entity
+@Table(name="racers")
+public class Racer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private final Long id;
+
+    @NotNull(message = "Please specify a name of this racer.")
+    private final String name;
+
+    @ManyToOne(targetEntity = Team.class)
+    private Team team;
+
+    public Racer() {
+        id = null;
+        name = null;
+    }
+
+    public Racer(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

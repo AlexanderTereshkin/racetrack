@@ -1,10 +1,23 @@
 package racetrack.entities;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
+@Entity
+@Table(name = "teams")
 public class Team {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    @OneToMany(targetEntity = Racer.class)
+    @Size(min = 3, max = 3, message = "In team must be a 3 racers.")
     private List<Racer> racerList;
+
+    @NotNull(message = "You have to specify a name of this team.")
     private String name;
 
     public Team(int id, List<Racer> racerList, String name) {

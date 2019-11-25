@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name="Cars")
+@Table(name="cars")
 public class Car {
 
     @Id
@@ -20,8 +20,8 @@ public class Car {
     @NotNull(message = "You have to specify a engine power of this car.")
     private final Float enginePower;
 
-    @OneToOne(targetEntity = Team.class)
-    @NotNull(message = "You have to specify a engine power of this car.")
+    @ManyToOne(targetEntity = Team.class)
+    @NotNull(message = "You have to specify a team for this car.")
     private Team team;
 
     private Car() {
