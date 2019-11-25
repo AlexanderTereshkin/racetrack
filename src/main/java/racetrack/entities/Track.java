@@ -3,12 +3,12 @@ package racetrack.entities;
 public class Track {
     private int id;
     private String nameOfTrack;
-    private String status;
+    private TrackStatus trackStatus;
 
-    public Track(int id, String nameOfTrack, String status) {
+    public Track(int id, String nameOfTrack, TrackStatus trackStatus) {
         this.id = id;
         this.nameOfTrack = nameOfTrack;
-        this.status = status;
+        this.trackStatus = trackStatus;
     }
 
     public int getId() {
@@ -27,11 +27,15 @@ public class Track {
         this.nameOfTrack = nameOfTrack;
     }
 
-    public String getStatus() {
-        return status;
+    public TrackStatus getTrackStatus() {
+        return trackStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTrackStatus(TrackStatus trackStatus) {
+        this.trackStatus = trackStatus;
+    }
+
+    private enum TrackStatus {
+        FREE, BUZY
     }
 }

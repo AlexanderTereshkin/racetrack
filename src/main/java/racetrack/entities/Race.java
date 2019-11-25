@@ -8,7 +8,7 @@ public class Race {
     private Track track;
     private List<Racer> racerList;
 
-    private static enum Status {
+    private enum Status {
         CREATED, ONGOING, FINISHED
     }
 }
