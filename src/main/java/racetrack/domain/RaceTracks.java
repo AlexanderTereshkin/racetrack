@@ -1,4 +1,4 @@
-package racetrack.entities;
+package racetrack.domain;
 
 public class RaceTracks {
     private Track track1;

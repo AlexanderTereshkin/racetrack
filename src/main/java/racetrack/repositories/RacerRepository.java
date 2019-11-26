@@ -1,7 +1,6 @@
-package racetrack.data;
+package racetrack.repositories;
 
 //import org.springframework.data.repository.CrudRepository;
-import racetrack.entities.Racer;
 
 public interface RacerRepository /*extends CrudRepository<Racer, Long>*/ {
 }

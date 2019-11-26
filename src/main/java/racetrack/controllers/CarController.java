@@ -1,40 +1,28 @@
 package racetrack.controllers;
 
-/*import org.springframework.stereotype.Controller;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;*/
-import racetrack.data.CarRepository;
-import racetrack.entities.Car;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import racetrack.domain.Car;
+import racetrack.repositories.CarRepository;
 
-/*import javax.validation.Valid;*/
-
-//@Controller
-//@RequestMapping("/cars")
-//@SessionAttributes("team")
+@Controller
+@RequestMapping(path="/cars")
 public class CarController {
 
+    @Autowired
     private CarRepository carRepository;
 
-    public CarController(CarRepository carRepository) {
-        this.carRepository = carRepository;
+    @GetMapping(path="/all-cars")
+    public @ResponseBody Iterable<Car> getAllCars() {
+        return carRepository.findAll();
     }
 
-    //@GetMapping("/current")
-    public String carInfo() {
-        return "carInfo";
-    }
-
-    /*public String addCar(@Valid Car car, Errors errors, SessionStatus sessionStatus) {
-        if (errors.hasErrors()) {
-            return "carInfo";
-        }
-
+    @PostMapping(path="/add-new-car")
+    public @ResponseBody String addNewCar(@RequestParam String brand) {
+        Car car = new Car();
+        car.setBrand(brand);
         carRepository.save(car);
-        sessionStatus.setComplete();
-
-        return "redirect:/";
-    }*/
+        return "Saved";
+    }
 }

@@ -1,4 +1,4 @@
-package racetrack.entities;
+package racetrack.domain;
 
 /*
 import javax.persistence.Entity;
