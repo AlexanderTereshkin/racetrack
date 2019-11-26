@@ -1,28 +1,28 @@
 package racetrack.entities;
 
-import javax.persistence.*;
+/*import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
+import java.io.Serializable;*/
 import java.util.List;
 
-@Entity
-@Table(name="races")
-public class Race implements Serializable {
+//@Entity
+//@Table(name="races")
+public class Race /*implements Serializable*/ {
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     private Status status;
 
-    @NotNull(message = "You must to choose a track, where this race will start.")
+    //@NotNull(message = "You must to choose a track, where this race will start.")
     private Track track;
 
-    @OneToMany(targetEntity = Racer.class)
-    @Size(min = 5, max = 5, message = "In the race must to participate 5 racers.")
+    //@OneToMany(targetEntity = Racer.class)
+    //@Size(min = 5, max = 5, message = "In the race must to participate 5 racers.")
     private List<Racer> racerList;
 
     private enum Status {

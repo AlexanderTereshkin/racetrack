@@ -6,40 +6,37 @@ import java.io.Serializable;
 
 @Entity
 @Table(name="cars")
-public class Car implements Serializable {
+public class Car /*implements Serializable*/ {
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+    private Long id;
 
-    @NotNull(message = "You have to specify a brand of this car.")
-    private final String brand;
+    //@NotNull(message = "You have to specify a brand of this car.")
+    private String brand;
 
-    @NotNull(message = "You have to specify a model of this car.")
-    private final String model;
+    //@NotNull(message = "You have to specify a model of this car.")
+    private String model;
 
-    @NotNull(message = "You have to specify a engine power of this car.")
-    private final Float enginePower;
+    //@NotNull(message = "You have to specify a engine power of this car.")
+    private Float enginePower;
 
-    @ManyToOne(targetEntity = Team.class)
-    @NotNull(message = "You have to specify a team for this car.")
-    private Team team;
+    //@ManyToOne(targetEntity = Team.class)
+    //@NotNull(message = "You have to specify a team for this car.")
+    //private Team team;
 
     private Car() {
-        id = null;
-        brand = null;
-        model = null;
-        enginePower = null;
+
     }
 
-    public Car(Long id, String brand, String model, Float enginePower, Team team) {
+    public Car(Long id, String brand, String model, Float enginePower/*, Team team*/) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.enginePower = enginePower;
-        this.team = team;
+        //this.team = team;
     }
 
     public Long getId() {
@@ -58,11 +55,27 @@ public class Car implements Serializable {
         return enginePower;
     }
 
-    public Team getTeam() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public void setEnginePower(Float enginePower) {
+        this.enginePower = enginePower;
+    }
+
+    /*public Team getTeam() {
         return team;
     }
 
     public void setTeam(Team team) {
         this.team = team;
-    }
+    }*/
 }

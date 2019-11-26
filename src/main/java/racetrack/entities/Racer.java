@@ -1,23 +1,23 @@
 package racetrack.entities;
 
-import javax.persistence.*;
+/*import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import java.io.Serializable;*/
 
-@Entity
-@Table(name="racers")
-public class Racer implements Serializable {
+//@Entity
+//@Table(name="racers")
+public class Racer /*implements Serializable*/ {
 
-    private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private final Long id;
 
-    @NotNull(message = "Please specify a name of this racer.")
+    //@NotNull(message = "Please specify a name of this racer.")
     private final String name;
 
-    @ManyToOne(targetEntity = Team.class)
+    //@ManyToOne(targetEntity = Team.class)
     private Team team;
 
     public Racer() {

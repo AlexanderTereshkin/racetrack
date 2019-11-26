@@ -1,19 +1,21 @@
 package racetrack.entities;
 
+/*
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+*/
 
-@Entity
+//@Entity
 public class Track {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@Id
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @NotNull(message = "You have to specify a name of this track.")
+    //@NotNull(message = "You have to specify a name of this track.")
     private String nameOfTrack;
 
     private TrackStatus trackStatus;
