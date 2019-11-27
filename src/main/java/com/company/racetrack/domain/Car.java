@@ -1,4 +1,4 @@
-package racetrack.domain;
+package com.company.racetrack.domain;
 
 import javax.persistence.*;
 
@@ -14,16 +14,16 @@ public class Car {
     private String brand;
 
     //@NotNull(message = "You have to specify a model of this car.")
-    //private String model;
+    private String carModel;
 
     //@NotNull(message = "You have to specify a engine power of this car.")
-    //private Float enginePower;
+    private Float enginePower;
 
-    //@ManyToOne(targetEntity = Team.class)
+    @ManyToOne(targetEntity = Team.class)
     //@NotNull(message = "You have to specify a team for this car.")
-    //private Team team;
+    private Team team;
 
-    public Car() {
+    protected Car() {
     }
 
     public Long getId() {
@@ -40,5 +40,29 @@ public class Car {
 
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+
+    public String getCarModel() {
+        return carModel;
+    }
+
+    public void setCarModel(String carModel) {
+        this.carModel = carModel;
+    }
+
+    public Float getEnginePower() {
+        return enginePower;
+    }
+
+    public void setEnginePower(Float enginePower) {
+        this.enginePower = enginePower;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }

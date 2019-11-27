@@ -1,4 +1,4 @@
-package racetrack.repositories;
+package com.company.racetrack.repositories;
 
 //import org.springframework.data.repository.CrudRepository;
 

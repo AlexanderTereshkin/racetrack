@@ -1,7 +1,7 @@
-package racetrack.repositories;
+package com.company.racetrack.repositories;
 
+import com.company.racetrack.domain.Car;
 import org.springframework.data.repository.CrudRepository;
-import racetrack.domain.Car;
 
 public interface CarRepository extends CrudRepository<Car, Long> {
 }
