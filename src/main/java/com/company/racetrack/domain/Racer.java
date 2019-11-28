@@ -1,41 +1,52 @@
 package com.company.racetrack.domain;
 
-/*import javax.persistence.*;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;*/
+import java.io.Serializable;
 
-//@Entity
-//@Table(name="racers")
-public class Racer /*implements Serializable*/ {
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-    //private static final long serialVersionUID = 1L;
+import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    private final Long id;
+@Entity
+@Table(name="racers")
+public class Racer {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     //@NotNull(message = "Please specify a name of this racer.")
-    private final String name;
+    private String name;
 
-    //@ManyToOne(targetEntity = Team.class)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "team_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private Team team;
 
     public Racer() {
-        id = null;
-        name = null;
-    }
-
-    public Racer(Long id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Team getTeam() {

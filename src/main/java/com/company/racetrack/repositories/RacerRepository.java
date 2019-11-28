@@ -1,6 +1,7 @@
 package com.company.racetrack.repositories;
 
-//import org.springframework.data.repository.CrudRepository;
+import com.company.racetrack.domain.Racer;
+import org.springframework.data.repository.CrudRepository;
 
-public interface RacerRepository /*extends CrudRepository<Racer, Long>*/ {
+public interface RacerRepository extends CrudRepository<Racer, Long> {
 }

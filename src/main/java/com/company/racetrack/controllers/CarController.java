@@ -32,8 +32,8 @@ public class CarController {
         car.setBrand(brand);
         Team team = teamRepository.findById(team_id).get();
         car.setTeam(team);
-        team.addCarToTeam(car);
+        team.getCarsList().add(car);
         carRepository.save(car);
-        return "Saved";
+        return "Saved new car: " + car.getBrand() + " " + car.getCarModel();
     }
 }
