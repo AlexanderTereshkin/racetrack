@@ -1,5 +1,10 @@
 package com.company.racetrack.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,8 +24,12 @@ public class Car {
     //@NotNull(message = "You have to specify a engine power of this car.")
     private Float enginePower;
 
-    @ManyToOne(targetEntity = Team.class)
+    //@ManyToOne(targetEntity = Team.class)
     //@NotNull(message = "You have to specify a team for this car.")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "team_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private Team team;
 
     public Car() {
@@ -65,4 +74,15 @@ public class Car {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    /*@Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", brand='" + brand + '\'' +
+                ", carModel='" + carModel + '\'' +
+                ", enginePower=" + enginePower +
+                ", team='" + team.getName() +
+                "'}";
+    }*/
 }

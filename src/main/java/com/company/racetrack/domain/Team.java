@@ -1,8 +1,12 @@
 package com.company.racetrack.domain;
 
+import com.fasterxml.jackson.annotation.*;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "teams")
@@ -19,11 +23,14 @@ public class Team {
     //@Size(min = 3, max = 3, message = "In team must be a 3 racers.")
     //private List<Racer> racerList;
 
-    @OneToMany(targetEntity = Car.class)
+    //@OneToMany(targetEntity = Car.class)
     //@Size(min = 3, max = 3, message = "In team must be a 3 racers.")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "team")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Car> carsList = new ArrayList<>();
 
-    protected Team() {
+    public Team() {
     }
 
     public Long getId() {
