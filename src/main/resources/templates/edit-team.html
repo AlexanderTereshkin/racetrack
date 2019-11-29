@@ -6,17 +6,27 @@
 </head>
 
 <body>
-    <form method="PUT" th:action="@{/teams/{id}(id=${team.id})}" th:object="${team}">
+<h1>Edit team:</h1>
+
+<table>
+    <tr>
+        <td height="30" th:text="${team.id}"></td>
+        <td height="30" th:text="${team.name}"></td>
+        <td th:each="car : ${team.cars}"></td>
+        <td th:each="racer : ${team.racers}"></td>
+    </tr>
+</table>
+    <!--<form method="PUT" th:action="@{/teams/{id}(id=${team.id})}" th:object="${team}">
         <h1>Edit team:</h1>
 
-        <label for="id">Street address: </label>
-        <input type="text" th:field="*{deliveryStreet}"/>
-        <span class="validationError"
-              th:if="${#fields.hasErrors('deliveryStreet')}"
-              th:errors="*{deliveryStreet}">Street Error</span>
-        <br/>
-
-
-
+        <table>
+            <tr th:each="team : ${teams}">
+                <td height="30" th:text="${team.id}"></td>
+                <td height="30" th:text="${team.name}"></td>
+                <td th:each="car : ${team.cars}"></td>
+                <td th:each="racer : ${team.racers}"></td>
+            </tr>
+        </table>
+    </form>-->
 </body>
 </html>
