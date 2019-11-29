@@ -21,13 +21,14 @@ public class Racer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotNull(message = "Please specify a name of this racer.")
+    @NotNull(message = "Please specify a name of this racer.")
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
     @JsonIdentityReference(alwaysAsId = true)
+    @NotNull(message = "Please specify a team for this racer.")
     private Team team;
 
     public Racer() {

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="cars")
@@ -14,20 +15,20 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotNull(message = "You have to specify a brand of this car.")
+    @NotNull(message = "You have to specify a brand of this car.")
     private String brand;
 
-    //@NotNull(message = "You have to specify a model of this car.")
+    @NotNull(message = "You have to specify a model of this car.")
     private String carModel;
 
-    //@NotNull(message = "You have to specify a engine power of this car.")
+    @NotNull(message = "You have to specify a engine power of this car.")
     private Float enginePower;
 
-    //@NotNull(message = "You have to specify a team for this car.")
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "team_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
     @JsonIdentityReference(alwaysAsId = true)
+    @NotNull(message = "You have to specify a team for this car.")
     private Team team;
 
     public Car() {

@@ -3,6 +3,8 @@ package com.company.racetrack.domain;
 import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,19 +16,20 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@NotNull(message = "You have to specify a name of this team.")
+    @NotNull(message = "You have to specify a name of this team.")
+    @Size(max = 22, message = "No more than 3 riders per team.")
     private String name;
 
-    //@Size(min = 3, max = 3, message = "In team must be a 3 racers.")
-    @OneToMany(cascade = CascadeType.ALL, /*fetch = FetchType.EAGER,*/ mappedBy = "team")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
     @JsonIdentityReference(alwaysAsId = true)
+    @Size(max = 3, message = "No more than 3 riders per team.")
     private List<Racer> racersList = new ArrayList<>();
 
-    //@Size(min = 3, max = 3, message = "In team must be a 3 racers.")
-    @OneToMany(cascade = CascadeType.ALL, /*fetch = FetchType.EAGER,*/ mappedBy = "team")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
     @JsonIdentityReference(alwaysAsId = true)
+    @Size(max = 3, message = "No more than 3 cars per team.")
     private List<Car> carsList = new ArrayList<>();
 
     public Team() {
