@@ -2,31 +2,82 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Team</title>
+    <title>Edit team</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 
 <body>
+
+<a th:href="@{/teams}">Back to the list of teams</a>
+
+<br/>
+
 <h1>Edit team:</h1>
 
-<table>
-    <tr>
-        <td height="30" th:text="${team.id}"></td>
-        <td height="30" th:text="${team.name}"></td>
-        <td th:each="car : ${team.cars}"></td>
-        <td th:each="racer : ${team.racers}"></td>
-    </tr>
-</table>
-    <!--<form method="PUT" th:action="@{/teams/{id}(id=${team.id})}" th:object="${team}">
-        <h1>Edit team:</h1>
+<br/>
 
-        <table>
-            <tr th:each="team : ${teams}">
-                <td height="30" th:text="${team.id}"></td>
-                <td height="30" th:text="${team.name}"></td>
-                <td th:each="car : ${team.cars}"></td>
-                <td th:each="racer : ${team.racers}"></td>
+<form th:action="@{/teams/info/{id}(id=${updateTeam.id})}" th:object="${updateTeam}" th:method="post">
+
+    <table border="0" cellpadding="10">
+        <tr>
+            <td>Product ID:</td>
+            <td height="30" th:text="${updateTeam.id}"></td>
+        </tr>
+        <tr>
+            <td>Team Name:</td>
+            <td>
+                <input type="text" th:field="*{name}" />
+            </td>
+        </tr>
+
+    </table>
+
+    <h2>List of racers of this team:</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>ACTIONS</th>
+        </tr>
+        <th:block th:each="racer : ${updateTeam.racersList}">
+            <tr>
+                <td height="30" th:text="${racer.id}"></td>
+                <td height="30" th:text="${racer.name}"></td>
+                <td height="30" align="center">
+                    <a th:href="@{/racers/delete/{id}(id=${racer.id})}">Delete</a>
+                </td>
             </tr>
-        </table>
-    </form>-->
+        </th:block>
+    </table>
+
+    <h2>List of cars of this team:</h2>
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>BRAND</th>
+            <th>MODEL</th>
+            <th>ENGINE POWER (hp)</th>
+            <th>ACTIONS</th>
+        </tr>
+        <th:block th:each="car : ${updateTeam.carsList}">
+            <tr>
+                <td height="30" th:text="${car.id}"></td>
+                <td height="30" th:text="${car.brand}"></td>
+                <td height="30" th:text="${car.carModel}"></td>
+                <td height="30" th:text="${car.enginePower}"></td>
+                <td height="30" align="center">
+                    <a th:href="@{/cars/delete/{id}(id=${car.id})}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+
+    <br/>
+
+    <tr>
+        <td colspan="2"><button type="submit">Save</button> </td>
+    </tr>
+</form>
+
 </body>
 </html>

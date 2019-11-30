@@ -20,15 +20,15 @@ public class Team {
     @Size(max = 22, message = "No more than 3 riders per team.")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    //@JsonIdentityReference(alwaysAsId = true)
     @Size(max = 3, message = "No more than 3 riders per team.")
     private List<Racer> racersList = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    //@JsonIdentityReference(alwaysAsId = true)
     @Size(max = 3, message = "No more than 3 cars per team.")
     private List<Car> carsList = new ArrayList<>();
 

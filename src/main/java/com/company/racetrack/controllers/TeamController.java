@@ -4,6 +4,7 @@ import com.company.racetrack.domain.Team;
 import com.company.racetrack.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,6 @@ import javax.validation.Valid;
 @RequestMapping(path="/teams")
 public class TeamController {
 
-    //@Autowired
     private TeamRepository teamRepository;
 
     public TeamController(TeamRepository teamRepository) {
@@ -26,63 +26,57 @@ public class TeamController {
         return new Team();
     }
 
-    /*@GetMapping
-    public @ResponseBody Iterable<Team> getAllTeams() {
-        return teamRepository.findAll();
-    }*/
-
     @GetMapping
     public String getAllTeams(Model model) {
         model.addAttribute("teams", teamRepository.findAll());
         return "teams";
     }
 
-    /*@GetMapping(path="/{id}")
-    public @ResponseBody Team getTeamById(@PathVariable(value = "id") Long id) {
-        return teamRepository.findById(id).get();
-    }*/
+    @GetMapping(path="/info/{id}")
+    public String getTeam(@PathVariable(value = "id") Long id, Model model) {
+        model.addAttribute("team", teamRepository.findById(id).get());
+        return "info-team";
+    }
 
-    @GetMapping(path="/{id}")
-    public String getTeamById(@PathVariable(value = "id") Long id, Model model) {
-        model.addAttribute("team", teamRepository.findById(id));
+    @GetMapping(path="/add-new-team")
+    public String addNewTeam(Model model) {
+        Team newTeam = new Team();
+        model.addAttribute("newTeam", newTeam);
+        return "new-team";
+    }
+
+    @PostMapping(path="/save-new-team")
+    public String saveNewTeam(@Valid @ModelAttribute Team newTeam, Model model) {
+        teamRepository.save(newTeam);
+        model.addAttribute("teams", teamRepository.findAll());
+        return "teams";
+    }
+
+    @GetMapping(path="/edit/{id}")
+    public String editTeam(@PathVariable(value = "id") Long id, Model model) {
+        model.addAttribute("updateTeam", teamRepository.findById(id).get());
         return "edit-team";
     }
 
-    /*@PostMapping(path="/add-new-team")
-    public @ResponseBody String addNewTeam(@RequestParam String name) {
-        Team team = new Team();
-        team.setName(name);
-        teamRepository.save(team);
-        return "Team saved.";
-    }*/
-
-    @PostMapping(path="/add-new-team")
-    public @ResponseBody String addNewTeam(@RequestParam String name) {
-        Team team = new Team();
-        team.setName(name);
-        teamRepository.save(team);
-        return "Team saved.";
-    }
-
-   /* @PutMapping(path="/{id}")
-    public @ResponseBody String updateTeam(@PathVariable(value = "id") Long id, @Valid @RequestBody Team updateTeam) {
+    @PostMapping(path="/info/{id}")
+    public String saveEditTeam(@PathVariable(value = "id") Long id, @Valid @ModelAttribute Team updateTeam, Model model) {
         Team team = teamRepository.findById(id).get();
         team.setName(updateTeam.getName());
         teamRepository.save(team);
-        return "Team was updated";
-    }*/
-
-    @PutMapping(path="/{id}")
-    public String updateTeam(@PathVariable(value = "id") Long id, @Valid @RequestBody Team updateTeam) {
-        Team team = teamRepository.findById(id).get();
-        team.setName(updateTeam.getName());
-        teamRepository.save(team);
-        return "edit-team";
+        model.addAttribute("team", team);
+        return "info-team";
     }
 
-    @DeleteMapping("/{id}")
+    /*@DeleteMapping("/{id}")
     public @ResponseBody String deleteTeam(@PathVariable(value ="id") Long id) {
         teamRepository.deleteById(id);
         return "Team was deleted";
+    }*/
+
+    @GetMapping(path="/delete/{id}")
+    public String deleteTeam(@PathVariable(value ="id") Long id, Model model) {
+        teamRepository.deleteById(id);
+        model.addAttribute("teams", teamRepository.findAll());
+        return "teams";
     }
 }

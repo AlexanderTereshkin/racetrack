@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Teams of RaceTrack</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
 </head>
 
 <body>
@@ -13,23 +14,30 @@
     </br>
     </br>
 
-    <table>
+    <table border="1" cellpadding="10">
         <tr>
-            <th>ID</th> <th>TEAM</th> <th>EDIT TEAM</th>
+            <th>ID</th>
+            <th>TEAM</th>
+            <th>ACTIONS</th>
         </tr>
         <th:block th:each="team : ${teams}">
             <tr>
                 <td height="30" th:text="${team.id}"></td>
                 <td height="30" th:text="${team.name}"></td>
-                <td height="30" align="center"><a th:href="@{/teams/{id}(id=${team.id})}">Edit</a></td>
+                <td height="30" align="center">
+                    <a th:href="@{/teams/info/{id}(id=${team.id})}">Info</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/teams/edit/{id}(id=${team.id})}">Edit</a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{/teams/delete/{id}(id=${team.id})}">Delete</a>
+                </td>
             </tr>
         </th:block>
     </table>
 
     </br>
-    </br>
 
-    <a th:href="@{/add-new-team}" id="another">Add new team</a>
+    <a th:href="@{/teams/add-new-team}" id="another">Add new team</a>
 
     <br/>
 

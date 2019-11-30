@@ -6,6 +6,7 @@ import com.company.racetrack.repositories.RacerRepository;
 import com.company.racetrack.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -35,5 +36,18 @@ public class RacerController {
         team.getRacersList().add(racer);
         racerRepository.save(racer);
         return "Saved new racer: " + racer.getName();
+    }
+
+    @GetMapping(path="/delete/{id}")
+    public String deleteRacer(@PathVariable(value ="id") Long id, Model model) {
+        Racer racer = racerRepository.findById(id).get();
+        Team team = racer.getTeam();
+        team.getRacersList().remove(racer);
+
+        racerRepository.deleteById(id);
+        teamRepository.save(team);
+
+        model.addAttribute("updateTeam", team);
+        return "edit-team";
     }
 }

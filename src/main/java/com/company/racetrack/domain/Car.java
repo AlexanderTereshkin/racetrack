@@ -24,7 +24,7 @@ public class Car {
     @NotNull(message = "You have to specify a engine power of this car.")
     private Float enginePower;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "team_id", nullable = false)
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
     @JsonIdentityReference(alwaysAsId = true)
