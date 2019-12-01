@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Info about racer</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+
+<a th:href="@{/racers}">Back to the list of racers</a>
+
+<br/>
+
+<h1>Info about racer:</h1>
+
+<br/>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>TEAM</th>
+    </tr>
+    <tr>
+        <td th:text="${racer.id}"></td>
+        <td th:text="${racer.name}"></td>
+        <td th:text="${racer.team.name}"></td>
+    </tr>
+</table>
+</body>
+</html>

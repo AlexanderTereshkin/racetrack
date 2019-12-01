@@ -14,7 +14,7 @@
     </br>
     </br>
 
-    <table border="1" cellpadding="10">
+    <table>
         <tr>
             <th>ID</th>
             <th>TEAM</th>
@@ -22,9 +22,9 @@
         </tr>
         <th:block th:each="team : ${teams}">
             <tr>
-                <td height="30" th:text="${team.id}"></td>
-                <td height="30" th:text="${team.name}"></td>
-                <td height="30" align="center">
+                <td th:text="${team.id}"></td>
+                <td th:text="${team.name}"></td>
+                <td align="center">
                     <a th:href="@{/teams/info/{id}(id=${team.id})}">Info</a>
                     &nbsp;&nbsp;&nbsp;
                     <a th:href="@{/teams/edit/{id}(id=${team.id})}">Edit</a>

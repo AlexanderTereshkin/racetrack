@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Info about car</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+
+<a th:href="@{/cars}">Back to the list of cars</a>
+
+<br/>
+
+<h1>Info about car:</h1>
+
+<br/>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>BRAND</th>
+        <th>MODEL</th>
+        <th>ENGINE POWER (hp)</th>
+        <th>TEAM</th>
+    </tr>
+    <tr>
+        <td th:text="${car.id}"></td>
+        <td th:text="${car.brand}"></td>
+        <td th:text="${car.carModel}"></td>
+        <td th:text="${car.enginePower}"></td>
+        <td th:text="${car.team.name}"></td>
+    </tr>
+</table>
+</body>
+</html>

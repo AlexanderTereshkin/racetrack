@@ -29,7 +29,6 @@ public class Team {
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
     //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
     //@JsonIdentityReference(alwaysAsId = true)
-    @Size(max = 3, message = "No more than 3 cars per team.")
     private List<Car> carsList = new ArrayList<>();
 
     public Team() {

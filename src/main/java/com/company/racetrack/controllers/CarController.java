@@ -10,6 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.Iterator;
+import java.util.List;
+
 @Controller
 @RequestMapping(path="/cars")
 public class CarController {
@@ -23,20 +27,31 @@ public class CarController {
         this.teamRepository = teamRepository;
     }
 
-    @GetMapping(path="/all-cars")
-    public @ResponseBody Iterable<Car> getAllCars() {
-        return carRepository.findAll();
+    @GetMapping()
+    public String getAllCars(Model model) {
+        model.addAttribute("cars", carRepository.findAll());
+        return "cars";
     }
 
-    @PostMapping(path="/add-new-car")
-    public @ResponseBody String addNewCar(@RequestParam String brand, @RequestParam Long team_id) {
-        Car car = new Car();
-        car.setBrand(brand);
-        Team team = teamRepository.findById(team_id).get();
-        car.setTeam(team);
-        team.getCarsList().add(car);
-        carRepository.save(car);
-        return "Saved new car: " + car.getBrand() + " " + car.getCarModel();
+    @GetMapping(path="/info/{id}")
+    public String getCar(@PathVariable(value = "id") Long id, Model model) {
+        model.addAttribute("car", carRepository.findById(id).get());
+        return "info-car";
+    }
+
+    @GetMapping(path="/add-new-car")
+    public String addNewCar(Model model) {
+        Car newCar = new Car();
+        model.addAttribute("teams", teamRepository.findAll());
+        model.addAttribute("newCar", newCar);
+        return "new-car";
+    }
+
+    @PostMapping(path="/save-new-car")
+    public String saveNewCar(@Valid @ModelAttribute Car newCar, Model model) {
+        carRepository.save(newCar);
+        model.addAttribute("cars", carRepository.findAll());
+        return "cars";
     }
 
     @GetMapping(path="/delete/{id}")

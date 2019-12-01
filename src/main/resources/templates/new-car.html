@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add new car</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+
+<a th:href="@{/cars}">Back to the list of cars</a>
+
+<br/>
+
+<h1>Add info about new car:</h1>
+
+<br/>
+
+<form th:action="@{/cars/save-new-car}" th:object="${newCar}" method="post">
+    <table>
+        <tr>
+            <td>BRAND:</td>
+            <td><input type="text" th:field="*{brand}" /></td>
+        </tr>
+        <tr>
+            <td>MODEL:</td>
+            <td><input type="text" th:field="*{carModel}" /></td>
+        </tr>
+        <tr>
+            <td>ENGINE POWER (hp):</td>
+            <td><input type="text" th:field="*{enginePower}" /></td>
+        </tr>
+        <tr>
+            <td>TEAM:</td>
+            <td>
+                <select th:field="*{team}">
+                    <option value=""> -- </option>
+                    <option th:each="team : ${teams}"
+                            th:value="${team}"
+                            th:text="${team.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="submit">Save</button> </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

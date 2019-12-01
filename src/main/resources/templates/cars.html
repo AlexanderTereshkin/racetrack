@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cars</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+<h1>List of cars:</h1>
+<img th:src="@{/images/title.jpg}"/>
+
+</br>
+</br>
+</br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>BRAND</th>
+        <th>MODEL</th>
+        <th>ENGINE POWER (hp)</th>
+        <th>TEAM</th>
+        <th>ACTIONS</th>
+    </tr>
+    <th:block th:each="car : ${cars}">
+        <tr>
+            <td th:text="${car.id}"></td>
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.carModel}"></td>
+            <td th:text="${car.enginePower}"></td>
+            <td th:text="${car.team.name}"></td>
+            <td align="center">
+                <a th:href="@{/cars/info/{id}(id=${car.id})}">Info</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/cars/delete/{id}(id=${car.id})}">Delete</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+</br>
+
+<a th:href="@{/cars/add-new-car}" id="another">Add new car</a>
+
+<br/>
+
+</body>
+</html>

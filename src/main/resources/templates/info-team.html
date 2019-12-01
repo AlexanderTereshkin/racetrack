@@ -28,7 +28,7 @@
 </table>
 
 <h2>List of racers of this team:</h2>
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>ID</th>
         <th>NAME</th>
@@ -36,9 +36,9 @@
     </tr>
     <th:block th:each="racer : ${team.racersList}">
         <tr>
-            <td height="30" th:text="${racer.id}"></td>
-            <td height="30" th:text="${racer.name}"></td>
-            <td height="30" align="center">
+            <td th:text="${racer.id}"></td>
+            <td th:text="${racer.name}"></td>
+            <td align="center">
                 <a th:href="@{/racers/info/{id}(id=${racer.id})}">Info</a>
             </td>
         </tr>
@@ -46,7 +46,7 @@
 </table>
 
 <h2>List of cars of this team:</h2>
-<table border="1" cellpadding="10">
+<table>
     <tr>
         <th>ID</th>
         <th>BRAND</th>
@@ -56,11 +56,11 @@
     </tr>
     <th:block th:each="car : ${team.carsList}">
         <tr>
-            <td height="30" th:text="${car.id}"></td>
-            <td height="30" th:text="${car.brand}"></td>
-            <td height="30" th:text="${car.carModel}"></td>
-            <td height="30" th:text="${car.enginePower}"></td>
-            <td height="30" align="center">
+            <td th:text="${car.id}"></td>
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.carModel}"></td>
+            <td th:text="${car.enginePower}"></td>
+            <td align="center">
                 <a th:href="@{/cars/info/{id}(id=${car.id})}">Info</a>
             </td>
         </tr>

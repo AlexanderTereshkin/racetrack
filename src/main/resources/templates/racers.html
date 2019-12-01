@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Racers</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+<h1>List of racers:</h1>
+<img th:src="@{/images/title.jpg}"/>
+
+</br>
+</br>
+</br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>TEAM</th>
+        <th>ACTIONS</th>
+    </tr>
+    <th:block th:each="racer : ${racers}">
+        <tr>
+            <td th:text="${racer.id}"></td>
+            <td th:text="${racer.name}"></td>
+            <td th:text="${racer.team.name}"></td>
+            <td align="center">
+                <a th:href="@{/racers/info/{id}(id=${racer.id})}">Info</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/racers/delete/{id}(id=${racer.id})}">Delete</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+</br>
+
+<a th:href="@{/racers/add-new-racer}" id="another">Add new racer</a>
+
+<br/>
+
+</body>
+</html>

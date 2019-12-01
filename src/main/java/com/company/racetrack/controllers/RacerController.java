@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping(path="/racers")
 public class RacerController {
@@ -22,20 +24,30 @@ public class RacerController {
         this.teamRepository = teamRepository;
     }
 
-    @GetMapping(path="/all-racers")
-    public @ResponseBody Iterable<Racer> getAllRacers() {
-        return racerRepository.findAll();
+    @GetMapping()
+    public String getAllRacers(Model model) {
+        model.addAttribute("racers", racerRepository.findAll());
+        return "racers";
     }
 
-    @PostMapping(path="/add-new-racer")
-    public @ResponseBody String addNewRacer(@RequestParam String name, @RequestParam Long team_id) {
-        Racer racer = new Racer();
-        racer.setName(name);
-        Team team = teamRepository.findById(team_id).get();
-        racer.setTeam(team);
-        team.getRacersList().add(racer);
-        racerRepository.save(racer);
-        return "Saved new racer: " + racer.getName();
+    @GetMapping(path="/info/{id}")
+    public String getRacer(@PathVariable(value = "id") Long id, Model model) {
+        model.addAttribute("racer", racerRepository.findById(id).get());
+        return "info-racer";
+    }
+
+    @GetMapping(path="/add-new-racer")
+    public String addNewRacer(Model model) {
+        Racer newRacer = new Racer();
+        model.addAttribute("newRacer", newRacer);
+        return "new-racer";
+    }
+
+    @PostMapping(path="/save-new-racer")
+    public String saveNewRacer(@Valid @ModelAttribute Racer newRacer, Model model) {
+        racerRepository.save(newRacer);
+        model.addAttribute("racers", racerRepository.findAll());
+        return "racers";
     }
 
     @GetMapping(path="/delete/{id}")

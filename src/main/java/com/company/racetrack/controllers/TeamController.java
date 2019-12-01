@@ -17,6 +17,7 @@ public class TeamController {
 
     private TeamRepository teamRepository;
 
+    @Autowired
     public TeamController(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
     }

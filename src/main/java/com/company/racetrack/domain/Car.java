@@ -26,8 +26,8 @@ public class Car {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "team_id", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    //@JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "You have to specify a team for this car.")
     private Team team;
 
