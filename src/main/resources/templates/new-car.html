@@ -33,10 +33,10 @@
         <tr>
             <td>TEAM:</td>
             <td>
-                <select th:field="*{team}">
-                    <option value=""> -- </option>
+                <select class="form-control" th:field="*{team}">
+                    <option value=""> Select team </option>
                     <option th:each="team : ${teams}"
-                            th:value="${team}"
+                            th:value="${team.id}"
                             th:text="${team.name}">
                     </option>
                 </select>

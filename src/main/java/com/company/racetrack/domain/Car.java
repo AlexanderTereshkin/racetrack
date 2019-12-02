@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @Entity
 @Table(name="cars")
@@ -30,6 +31,9 @@ public class Car {
     //@JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "You have to specify a team for this car.")
     private Team team;
+
+    /*@ManyToMany(mappedBy = "cars")
+    private Set<Race> races;*/
 
     public Car() {
     }

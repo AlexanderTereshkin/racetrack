@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add new racer</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+
+<a th:href="@{/cars}">Back to the list of racers</a>
+
+<br/>
+
+<h1>Add info about new racer:</h1>
+
+<br/>
+
+<form th:action="@{/racers/save-new-racer}" th:object="${newRacer}" method="post">
+    <table>
+        <tr>
+            <td>NAME:</td>
+            <td><input type="text" th:field="*{name}" /></td>
+            <td class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:text="${error}"></td>
+        </tr>
+        <tr>
+            <td>TEAM:</td>
+            <td>
+                <select class="form-control" th:field="*{team}">
+                    <option value=""> Select team </option>
+                    <option th:each="team : ${teams}"
+                            th:value="${team.id}"
+                            th:text="${team.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="submit">Save</button> </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

@@ -7,6 +7,7 @@ import com.company.racetrack.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -39,13 +40,20 @@ public class RacerController {
     @GetMapping(path="/add-new-racer")
     public String addNewRacer(Model model) {
         Racer newRacer = new Racer();
+        model.addAttribute("teams", teamRepository.findAll());
         model.addAttribute("newRacer", newRacer);
         return "new-racer";
     }
 
     @PostMapping(path="/save-new-racer")
-    public String saveNewRacer(@Valid @ModelAttribute Racer newRacer, Model model) {
+    public String saveNewRacer(@Valid @ModelAttribute("newRacer") Racer newRacer, Model model, Errors errors) {
+        if (errors.hasErrors()) {
+            model.addAttribute("teams", teamRepository.findAll());
+            model.addAttribute("newRacer", newRacer);
+            return "new-racer";
+        }
         racerRepository.save(newRacer);
+        teamRepository.save(newRacer.getTeam());
         model.addAttribute("racers", racerRepository.findAll());
         return "racers";
     }

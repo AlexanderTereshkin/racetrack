@@ -3,6 +3,7 @@ package com.company.racetrack.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
@@ -12,6 +13,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="racers")
@@ -22,14 +24,18 @@ public class Racer {
     private Long id;
 
     @NotNull(message = "Please specify a name of this racer.")
+    @Size(min = 1, message = "Please specify a name of this racer.")
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "team_id", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-    @JsonIdentityReference(alwaysAsId = true)
+    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    //@JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "Please specify a team for this racer.")
     private Team team;
+
+    /*@ManyToMany(mappedBy = "racers")
+    private Set<Race> races;*/
 
     public Racer() {
     }

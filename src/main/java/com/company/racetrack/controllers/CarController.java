@@ -8,6 +8,7 @@ import com.company.racetrack.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -48,7 +49,10 @@ public class CarController {
     }
 
     @PostMapping(path="/save-new-car")
-    public String saveNewCar(@Valid @ModelAttribute Car newCar, Model model) {
+    public String saveNewCar(@Valid @ModelAttribute Car newCar, Model model, Errors errors) {
+        if (errors.hasErrors()) {
+            return "new-car";
+        }
         carRepository.save(newCar);
         model.addAttribute("cars", carRepository.findAll());
         return "cars";

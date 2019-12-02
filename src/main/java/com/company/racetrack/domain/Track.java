@@ -1,33 +1,27 @@
 package com.company.racetrack.domain;
 
-/*
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-*/
+import java.util.HashSet;
+import java.util.Set;
 
-//@Entity
+@Entity
 public class Track {
 
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    //@NotNull(message = "You have to specify a name of this track.")
+    @OneToMany(mappedBy = "track", cascade = CascadeType.REMOVE)
+    private Set<Race> races = new HashSet<>();
+
+    @NotNull(message = "You have to specify a name of this track.")
     private String nameOfTrack;
 
     private TrackStatus trackStatus;
 
     public Track() {
         trackStatus = TrackStatus.FREE;
-    }
-
-    public Track(int id, String nameOfTrack, TrackStatus trackStatus) {
-        this.id = id;
-        this.nameOfTrack = nameOfTrack;
-        this.trackStatus = trackStatus;
     }
 
     public int getId() {
@@ -52,6 +46,14 @@ public class Track {
 
     public void setTrackStatus(TrackStatus trackStatus) {
         this.trackStatus = trackStatus;
+    }
+
+    public Set<Race> getRaces() {
+        return races;
+    }
+
+    public void setRaces(Set<Race> races) {
+        this.races = races;
     }
 
     private enum TrackStatus {
