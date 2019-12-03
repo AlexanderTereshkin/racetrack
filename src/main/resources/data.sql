@@ -41,3 +41,22 @@ INSERT INTO racers (name, team_id)
 
 INSERT INTO racers (name, team_id)
             VALUES('Fernando Alonso', 3);
+
+
+
+INSERT INTO tracks (name_of_track, track_status)
+            VALUES('TRACK #1', 'FREE');
+INSERT INTO tracks (name_of_track, track_status)
+            VALUES('TRACK #2', 'FREE');
+INSERT INTO tracks (name_of_track, track_status)
+            VALUES('TRACK #3', 'FREE');
+
+
+
+/*INSERT INTO races (status, track_id)
+            VALUES('FINISHED', 1);
+
+
+
+INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
+            VALUES(1,2,2,120);*/

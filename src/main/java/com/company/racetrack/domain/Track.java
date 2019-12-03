@@ -6,11 +6,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name="tracks")
 public class Track {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @OneToMany(mappedBy = "track", cascade = CascadeType.REMOVE)
     private Set<Race> races = new HashSet<>();
@@ -18,17 +19,18 @@ public class Track {
     @NotNull(message = "You have to specify a name of this track.")
     private String nameOfTrack;
 
+    @Enumerated(EnumType.STRING)
     private TrackStatus trackStatus;
 
     public Track() {
         trackStatus = TrackStatus.FREE;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

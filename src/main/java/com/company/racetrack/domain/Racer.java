@@ -3,8 +3,10 @@ package com.company.racetrack.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
+import com.company.racetrack.repositories.RaceRepository;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -34,8 +36,8 @@ public class Racer {
     @NotNull(message = "Please specify a team for this racer.")
     private Team team;
 
-    /*@ManyToMany(mappedBy = "racers")
-    private Set<Race> races;*/
+    @OneToMany(mappedBy = "racer", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<RaceRacerCarLink> raceRacerCarLink;
 
     public Racer() {
     }
@@ -62,5 +64,13 @@ public class Racer {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Set<RaceRacerCarLink> getRaceRacerCarLink() {
+        return raceRacerCarLink;
+    }
+
+    public void setRaceRacerCarLink(Set<RaceRacerCarLink> raceRacerCarLink) {
+        this.raceRacerCarLink = raceRacerCarLink;
     }
 }

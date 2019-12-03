@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Races</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+<h1>List of races:</h1>
+<img th:src="@{/images/title.jpg}"/>
+
+</br>
+</br>
+</br>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>STATUS</th>
+        <th>TRACK</th>
+        <th>ACTIONS</th>
+    </tr>
+    <th:block th:each="race : ${races}">
+        <tr>
+            <td th:text="${race.id}"></td>
+            <td th:text="${race.status}"></td>
+            <td th:text="${race.track.nameOfTrack}"></td>
+            <td align="center">
+                <a th:href="@{/races/info/{id}(id=${race.id})}">Info</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/races/edit/{id}(id=${race.id})}">Add racers</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/races/start/{id}(id=${race.id})}">Start</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="@{/races/finish/{id}(id=${race.id})}">Finish</a>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+</br>
+
+<a th:href="@{/races/add-new-race}" id="another">Add new race</a>
+
+<br/>
+
+</body>
+</html>

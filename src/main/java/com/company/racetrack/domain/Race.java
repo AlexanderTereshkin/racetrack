@@ -2,11 +2,7 @@ package com.company.racetrack.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name="races")
@@ -16,6 +12,7 @@ public class Race {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
@@ -23,24 +20,22 @@ public class Race {
     @NotNull(message = "You must to choose a track, where this race will start.")
     private Track track;
 
-   /* @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-*//*    @JoinTable(name = "races_racers",
-            joinColumns = @JoinColumn(name = "race_id"),
-            inverseJoinColumns = @JoinColumn(name = "racer_id"))*//*
+    //private RaceRacerCarLink winner;
+
+    /*@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn
     @Size(min = 4, message = "In the race have to be no less than 4 riders.")
     @Size(max = 6, message = "In the race have to be no more than 6 riders.")
-    private Set<Racer> racers;
+    private Set<Racer> racers = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn
     @Size(min = 4, message = "In the race have to be no less than 4 cars.")
     @Size(max = 6, message = "In the race have to be no more than 6 cars.")
-    private Set<Car> cars;*/
+    private Set<Car> cars = new HashSet<>();*/
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "race_participants",
-            joinColumns = @JoinColumn(name = "racer_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id"))
-    private Map<Racer, Car> participants = new HashMap<>();
+    @OneToMany(mappedBy = "race", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<RaceRacerCarLink> raceRacerCarLink;
 
     private enum Status {
         CREATED, ONGOING, FINISHED
@@ -74,27 +69,19 @@ public class Race {
         this.track = track;
     }
 
-    public Map<Racer, Car> getParticipants() {
-        return participants;
+    /*public RaceRacerCarLink getWinner() {
+        return winner;
     }
 
-    public void setParticipants(Map<Racer, Car> participants) {
-        this.participants = participants;
-    }
-
-    /*public Set<Racer> getRacers() {
-        return racers;
-    }
-
-    public void setRacers(Set<Racer> racers) {
-        this.racers = racers;
-    }
-
-    public Set<Car> getCars() {
-        return cars;
-    }
-
-    public void setCars(Set<Car> cars) {
-        this.cars = cars;
+    public void setWinner(RaceRacerCarLink winner) {
+        this.winner = winner;
     }*/
+
+    public Set<RaceRacerCarLink> getRaceRacerCarLink() {
+        return raceRacerCarLink;
+    }
+
+    public void setRaceRacerCarLink(Set<RaceRacerCarLink> raceRacerCarLink) {
+        this.raceRacerCarLink = raceRacerCarLink;
+    }
 }

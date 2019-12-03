@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -32,8 +33,8 @@ public class Car {
     @NotNull(message = "You have to specify a team for this car.")
     private Team team;
 
-    /*@ManyToMany(mappedBy = "cars")
-    private Set<Race> races;*/
+    @OneToMany(mappedBy = "car", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<RaceRacerCarLink> raceRacerCarLink;
 
     public Car() {
     }
@@ -76,5 +77,13 @@ public class Car {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+
+    public Set<RaceRacerCarLink> getRaceRacerCarLink() {
+        return raceRacerCarLink;
+    }
+
+    public void setRaceRacerCarLink(Set<RaceRacerCarLink> raceRacerCarLink) {
+        this.raceRacerCarLink = raceRacerCarLink;
     }
 }
