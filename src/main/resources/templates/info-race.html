@@ -36,7 +36,8 @@
         <th>TEAM</th>
         <th>NAME OF RACER</th>
         <th>CAR</th>
-        <th>ACTIONS</th>
+        <th>RESULT (sec.)</th>
+        <!--<th>ACTIONS</th>-->
     </tr>
     <th:block th:each="raceRacerCarLink : ${race.raceRacerCarLinkList}">
         <tr>
@@ -44,6 +45,7 @@
             <td th:text="${raceRacerCarLink.racer.team.name}"></td>
             <td th:text="${raceRacerCarLink.racer.name}"></td>
             <td th:text="${raceRacerCarLink.car.carModel}"></td>
+            <td th:text="${raceRacerCarLink.resultTime}"></td>
             <!--<td align="center">
                 <a th:href="@{/racers/info/{id}(id=${racer.id})}">Info</a>
             </td>-->
