@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add new participant to this race</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+
+<a th:href="@{/races}">Back to the list of races</a>
+
+<br/>
+
+<h1>Add new participant to this race:</h1>
+
+<br/>
+
+<form th:action="@{/races/save-new-participant}" th:object="${newParticipant}" th:method="post">
+
+    <table>
+        <tr>
+            <td>Race ID:</td>
+            <td th:text="${race.id}"></td>
+        </tr>
+        <tr>
+            <td>Race Status:</td>
+            <td th:text="${race.status}"></td>
+        </tr>
+        <tr>
+            <td>Race Track:</td>
+            <td th:text="${race.track.nameOfTrack}"></td>
+        </tr>
+        <tr>
+            <td>Add participant to this race:</td>
+        </tr>
+        <tr>
+            <td>Choose race:</td>
+            <td>
+                <select class="form-control" th:field="*{race}">
+                    <option value=""> Select race </option>
+                    <option th:each="race : ${races}"
+                            th:value="${race.id}"
+                            th:text="${race.id}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Choose racer:</td>
+            <td>
+                <select class="form-control" th:field="*{racer}">
+                    <option value=""> Select racer </option>
+                    <option th:each="racer : ${racers}"
+                            th:value="${racer.id}"
+                            th:text="${racer.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Choose car:</td>
+            <td>
+                <select class="form-control" th:field="*{car}">
+                    <option value=""> Select car </option>
+                    <option th:each="car : ${cars}"
+                            th:value="${car.id}"
+                            th:text="${car.carModel}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+
+    </table>
+
+    <br/>
+
+    <tr>
+        <td colspan="2"><button type="submit">Add Participant</button> </td>
+    </tr>
+</form>
+
+</body>
+</html>

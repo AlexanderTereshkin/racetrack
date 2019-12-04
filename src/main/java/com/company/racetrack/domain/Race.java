@@ -10,7 +10,7 @@ public class Race {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -22,20 +22,8 @@ public class Race {
 
     //private RaceRacerCarLink winner;
 
-    /*@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn
-    @Size(min = 4, message = "In the race have to be no less than 4 riders.")
-    @Size(max = 6, message = "In the race have to be no more than 6 riders.")
-    private Set<Racer> racers = new HashSet<>();
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn
-    @Size(min = 4, message = "In the race have to be no less than 4 cars.")
-    @Size(max = 6, message = "In the race have to be no more than 6 cars.")
-    private Set<Car> cars = new HashSet<>();*/
-
-    @OneToMany(mappedBy = "race", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<RaceRacerCarLink> raceRacerCarLink;
+    @OneToMany(mappedBy = "race", cascade = CascadeType.REMOVE)
+    private List<RaceRacerCarLink> raceRacerCarLinkList = new ArrayList<>();
 
     private enum Status {
         CREATED, ONGOING, FINISHED
@@ -45,11 +33,11 @@ public class Race {
         status = Status.CREATED;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -77,11 +65,11 @@ public class Race {
         this.winner = winner;
     }*/
 
-    public Set<RaceRacerCarLink> getRaceRacerCarLink() {
-        return raceRacerCarLink;
+    public List<RaceRacerCarLink> getRaceRacerCarLink() {
+        return raceRacerCarLinkList;
     }
 
-    public void setRaceRacerCarLink(Set<RaceRacerCarLink> raceRacerCarLink) {
-        this.raceRacerCarLink = raceRacerCarLink;
+    public void setRaceRacerCarLink(List<RaceRacerCarLink> raceRacerCarLinkList) {
+        this.raceRacerCarLinkList = raceRacerCarLinkList;
     }
 }

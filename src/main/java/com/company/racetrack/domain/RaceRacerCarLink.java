@@ -1,6 +1,8 @@
 package com.company.racetrack.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name="race_racer_car")
@@ -10,16 +12,19 @@ public class RaceRacerCarLink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name="race_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="race_id", nullable = false)
+    @NotNull(message = "choose race.")
     private Race race;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name="racer_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="racer_id", nullable = false)
+    @NotNull(message = "choose racer.")
     private Racer racer;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name="car_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name="car_id", nullable = false)
+    @NotNull(message = "choose car.")
     private Car car;
 
     private Long resultTime;

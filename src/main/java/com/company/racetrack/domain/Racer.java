@@ -3,7 +3,9 @@ package com.company.racetrack.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.company.racetrack.repositories.RaceRepository;
@@ -36,8 +38,8 @@ public class Racer {
     @NotNull(message = "Please specify a team for this racer.")
     private Team team;
 
-    @OneToMany(mappedBy = "racer", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<RaceRacerCarLink> raceRacerCarLink;
+    @OneToMany(mappedBy = "racer", cascade = CascadeType.REMOVE)
+    private List<RaceRacerCarLink> raceRacerCarLink = new ArrayList<>();
 
     public Racer() {
     }
@@ -66,11 +68,11 @@ public class Racer {
         this.team = team;
     }
 
-    public Set<RaceRacerCarLink> getRaceRacerCarLink() {
+    public List<RaceRacerCarLink> getRaceRacerCarLink() {
         return raceRacerCarLink;
     }
 
-    public void setRaceRacerCarLink(Set<RaceRacerCarLink> raceRacerCarLink) {
+    public void setRaceRacerCarLink(List<RaceRacerCarLink> raceRacerCarLink) {
         this.raceRacerCarLink = raceRacerCarLink;
     }
 }
