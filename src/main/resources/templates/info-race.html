@@ -38,7 +38,7 @@
         <th>CAR</th>
         <th>ACTIONS</th>
     </tr>
-    <th:block th:each="raceRacerCarLink : ${race.raceRacerCarLink}">
+    <th:block th:each="raceRacerCarLink : ${race.raceRacerCarLinkList}">
         <tr>
             <td th:text="${raceRacerCarLink.id}"></td>
             <td th:text="${raceRacerCarLink.racer.team.name}"></td>

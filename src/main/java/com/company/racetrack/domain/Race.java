@@ -25,12 +25,7 @@ public class Race {
     @OneToMany(mappedBy = "race", cascade = CascadeType.REMOVE)
     private List<RaceRacerCarLink> raceRacerCarLinkList = new ArrayList<>();
 
-    private enum Status {
-        CREATED, ONGOING, FINISHED
-    }
-
     public Race() {
-        status = Status.CREATED;
     }
 
     public Long getId() {
@@ -65,11 +60,11 @@ public class Race {
         this.winner = winner;
     }*/
 
-    public List<RaceRacerCarLink> getRaceRacerCarLink() {
+    public List<RaceRacerCarLink> getRaceRacerCarLinkList() {
         return raceRacerCarLinkList;
     }
 
-    public void setRaceRacerCarLink(List<RaceRacerCarLink> raceRacerCarLinkList) {
+    public void setRaceRacerCarLinkList(List<RaceRacerCarLink> raceRacerCarLinkList) {
         this.raceRacerCarLinkList = raceRacerCarLinkList;
     }
 }

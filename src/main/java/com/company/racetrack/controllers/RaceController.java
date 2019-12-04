@@ -2,6 +2,7 @@ package com.company.racetrack.controllers;
 
 import com.company.racetrack.domain.Race;
 import com.company.racetrack.domain.RaceRacerCarLink;
+import com.company.racetrack.domain.Status;
 import com.company.racetrack.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,6 +86,31 @@ public class RaceController {
 
         raceRacerCarLinkRepository.save(newParticipant);
 
+        model.addAttribute("races", raceRepository.findAll());
+        return "races";
+    }
+
+    @GetMapping(path="/start/{id}")
+    public String startRace(@PathVariable(value = "id") Long id, Model model) {
+        Race race = raceRepository.findById(id).get();
+        race.setStatus(Status.ONGOING);
+        raceRepository.save(race);
+        model.addAttribute("races", raceRepository.findAll());
+        return "races";
+    }
+
+    @GetMapping(path="/finish/{id}")
+    public String finishRace(@PathVariable(value = "id") Long id, Model model) {
+        Race race = raceRepository.findById(id).get();
+
+        //race.getRaceRacerCarLinkList().stream().map(r -> r.getResultTime() + Math.round(Math.random() * 100));
+
+        for (RaceRacerCarLink r : race.getRaceRacerCarLinkList()) {
+            r.setResultTime(Math.round(Math.random() * 100));
+        }
+
+        race.setStatus(Status.FINISHED);
+        raceRepository.save(race);
         model.addAttribute("races", raceRepository.findAll());
         return "races";
     }
