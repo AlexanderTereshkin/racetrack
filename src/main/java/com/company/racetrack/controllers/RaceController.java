@@ -62,6 +62,7 @@ public class RaceController {
             model.addAttribute("newRace", newRace);
             return "new-race";
         }
+        newRace.setStatus(Status.CREATED);
         raceRepository.save(newRace);
         model.addAttribute("races", raceRepository.findAll());
         return "races";

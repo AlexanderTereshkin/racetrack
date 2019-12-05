@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Race track management</title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+
+<body>
+<h1>Race track management</h1>
+<img th:src="@{/images/title.jpg}"/>
+
+</br>
+</br>
+</br>
+
+<table>
+    <tr>
+        <td><a th:href="@{/teams}">Teams</a></td>
+    </tr>
+    <tr>
+        <td><a th:href="@{/racers}">Racers</a></td>
+    </tr>
+    <tr>
+        <td><a th:href="@{/cars}">Cars</a></td>
+    </tr>
+    <tr>
+        <td><a th:href="@{/races}">List of all races that was or will on the tracks</a></td>
+    </tr>
+</table>
+
+</body>
+</html>
