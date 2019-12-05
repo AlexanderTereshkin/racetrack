@@ -1,5 +1,9 @@
 package com.company.racetrack.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
@@ -14,16 +18,22 @@ public class RaceRacerCarLink {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="race_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "choose race.")
     private Race race;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="racer_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "choose racer.")
     private Racer racer;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name="car_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "choose car.")
     private Car car;
 

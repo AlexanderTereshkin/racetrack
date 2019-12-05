@@ -23,7 +23,6 @@ public class Track {
     private TrackStatus trackStatus;
 
     public Track() {
-        trackStatus = TrackStatus.FREE;
     }
 
     public Long getId() {
@@ -56,9 +55,5 @@ public class Track {
 
     public void setRaces(Set<Race> races) {
         this.races = races;
-    }
-
-    private enum TrackStatus {
-        FREE, BUZY
     }
 }

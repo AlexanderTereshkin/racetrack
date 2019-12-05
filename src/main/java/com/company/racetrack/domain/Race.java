@@ -1,5 +1,9 @@
 package com.company.racetrack.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.*;
@@ -17,6 +21,8 @@ public class Race {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "track_id", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "You must to choose a track, where this race will start.")
     private Track track;
 
