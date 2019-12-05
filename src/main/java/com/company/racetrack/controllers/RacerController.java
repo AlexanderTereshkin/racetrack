@@ -41,6 +41,15 @@ public class RacerController {
     /*=================================================================*/
 
 
+    /*=========================Find all racers by team=========================*/
+    /*REST API*/
+    @GetMapping(path="/list-by-team/rest")
+    public @ResponseBody Iterable<Racer> getAllRacersByTeam(@RequestParam Team team) {
+        return racerRepository.findRacerByTeam(team);
+    }
+    /*=================================================================*/
+
+
     /*=========================Find racer by ID=========================*/
     /*REST API*/
     @GetMapping(value = "/info/{id}/rest")

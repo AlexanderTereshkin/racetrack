@@ -9,6 +9,8 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping(path="/races")
@@ -63,6 +65,31 @@ public class RaceController {
         return "info-race";
     }
     /*=================================================================*/
+
+    /*=========================Find all races for one racer=========================*/
+    /*REST API*/
+    @GetMapping(path="/list-by-racer/rest")
+    public @ResponseBody Iterable<Race> getRacesForRacer(@RequestParam Racer racer) {
+        List<Race> raceList = new ArrayList<>();
+        for (RaceRacerCarLink r : raceRacerCarLinkRepository.findRacesByRacer(racer)) {
+            raceList.add(r.getRace());
+        }
+        return raceList;
+    }
+    /*==============================================================================*/
+
+
+    /*=========================Find all races for one racer by one car=========================*/
+    /*REST API*/
+    @GetMapping(path="/list-by-racer-by-car/rest")
+    public @ResponseBody Iterable<Race> getRacesForRacer(@RequestParam Racer racer, @RequestParam Car car) {
+        List<Race> raceList = new ArrayList<>();
+        for (RaceRacerCarLink r : raceRacerCarLinkRepository.findRacesByRacerByCar(racer, car)) {
+            raceList.add(r.getRace());
+        }
+        return raceList;
+    }
+    /*==============================================================================*/
 
 
     /*=========================Add new race=========================*/
@@ -147,22 +174,33 @@ public class RaceController {
     /*=========================Start the race=========================*/
     /*REST API*/
     @PutMapping(path="/start/{id}/rest")
-    public @ResponseBody String startRace(@PathVariable(value = "id") Long id) {
+    public @ResponseBody Race startRace(@PathVariable(value = "id") Long id) {
         Race race = raceRepository.findById(id).get();
-        if (race.getStatus() == Status.CREATED && race.getRaceRacerCarLinkList().size() >= 3) {
-            race.setStatus(Status.ONGOING);
-            raceRepository.save(race);
-            return "Race with id " + race.getId() + " was started.";
-        } else {
-            if (race.getStatus() != Status.CREATED) {
-                return "Error: Race have status " + race.getStatus();
-            }
-            if (race.getRaceRacerCarLinkList().size() < 3) {
-                return "Race could not start. Count of participants less than 3.";
-            } else {
-                return "Race could not start.";
+
+        if (race.getStatus() != Status.CREATED) {
+            return race;
+        }
+        if (race.getRaceRacerCarLinkList().size() < 3) {
+            return race;
+        }
+
+        List<Racer> racersOfThisRace = new ArrayList<>();
+
+        for (RaceRacerCarLink r : race.getRaceRacerCarLinkList()) {
+            racersOfThisRace.add(r.getRacer());
+        }
+
+        for (Racer r : racersOfThisRace) {
+            for (RaceRacerCarLink raceRacerCarLink : raceRacerCarLinkRepository.findByRacer(r)) {
+                if (raceRacerCarLink.getRace().getStatus() == Status.ONGOING) {
+                    return race;
+                }
             }
         }
+
+        race.setStatus(Status.ONGOING);
+        raceRepository.save(race);
+        return race;
     }
 
     /*MVC*/
