@@ -1,7 +1,6 @@
 package com.company.racetrack.controllers;
 
 import com.company.racetrack.domain.Car;
-import com.company.racetrack.domain.Racer;
 import com.company.racetrack.domain.Team;
 import com.company.racetrack.repositories.CarRepository;
 import com.company.racetrack.repositories.TeamRepository;
@@ -12,8 +11,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Iterator;
-import java.util.List;
 
 @Controller
 @RequestMapping(path="/cars")

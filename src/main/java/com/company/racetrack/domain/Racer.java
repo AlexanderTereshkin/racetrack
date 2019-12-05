@@ -33,8 +33,8 @@ public class Racer {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "team_id", nullable = false)
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-    //@JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     @NotNull(message = "Please specify a team for this racer.")
     private Team team;
 

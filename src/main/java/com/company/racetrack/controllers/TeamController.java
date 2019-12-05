@@ -33,6 +33,13 @@ public class TeamController {
         return "teams";
     }
 
+    /*REST API*/
+    @GetMapping(value = "/info/{id}/rest", headers="Accept=application/json")
+    public @ResponseBody String getTeam(@PathVariable(value ="id") Long id) {
+        Team team = teamRepository.findById(id).get();
+        return team.toString();
+    }
+
     @GetMapping(path="/info/{id}")
     public String getTeam(@PathVariable(value = "id") Long id, Model model) {
         model.addAttribute("team", teamRepository.findById(id).get());

@@ -21,14 +21,14 @@ public class Team {
     private String name;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-    //@JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     @Size(max = 3, message = "No more than 3 riders per team.")
     private List<Racer> racersList = new ArrayList<>();
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
-    //@JsonIdentityReference(alwaysAsId = true)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Long.class)
+    @JsonIdentityReference(alwaysAsId = true)
     private List<Car> carsList = new ArrayList<>();
 
     public Team() {
