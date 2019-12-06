@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 @Entity
@@ -29,6 +30,7 @@ public class Race {
     //private RaceRacerCarLink winner;
 
     @OneToMany(mappedBy = "race", cascade = CascadeType.REMOVE)
+    @Size(min = 3, message = "In the race must be 3 or more participants.")
     private List<RaceRacerCarLink> raceRacerCarLinkList = new ArrayList<>();
 
     public Race() {

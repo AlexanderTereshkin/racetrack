@@ -59,11 +59,11 @@ public class TeamController {
     /*=========================Add new team======================*/
     /*REST API*/
     @PostMapping(path="/add-new-team/rest")
-    public @ResponseBody String addNewTeam(@RequestParam String name) {
-        Team team = new Team();
-        team.setName(name);
+    public @ResponseBody Team addNewTeam(@RequestBody Team team/*@RequestParam String name*/) {
+        /*Team team = new Team();
+        team.setName(name);*/
         teamRepository.save(team);
-        return "Team saved.";
+        return team;
     }
 
     /*MVC*/

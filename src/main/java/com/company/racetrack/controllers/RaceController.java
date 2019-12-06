@@ -1,8 +1,12 @@
 package com.company.racetrack.controllers;
 
 import com.company.racetrack.domain.*;
+import com.company.racetrack.error.RacerNowBusyInAnotherRaceException;
+import com.company.racetrack.error.StartRaceFailedException;
 import com.company.racetrack.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -173,7 +177,7 @@ public class RaceController {
 
     /*=========================Start the race=========================*/
     /*REST API*/
-    @PutMapping(path="/start/{id}/rest")
+    /*@PutMapping(path="/start/{id}/rest")
     public @ResponseBody Race startRace(@PathVariable(value = "id") Long id) {
         Race race = raceRepository.findById(id).get();
 
@@ -201,6 +205,34 @@ public class RaceController {
         race.setStatus(Status.ONGOING);
         raceRepository.save(race);
         return race;
+    }*/
+
+    @PutMapping(path="/start/{id}/rest")
+    public ResponseEntity<Race> startRace(@PathVariable(value = "id") Long id) throws StartRaceFailedException{
+        Race race = raceRepository.findById(id).get();
+
+        if (race.getStatus() != Status.CREATED) {
+            throw new StartRaceFailedException("Race could not start. Because it`s status is " + race.getStatus());
+        }
+
+        List<Racer> racersOfThisRace = new ArrayList<>();
+
+        for (RaceRacerCarLink r : race.getRaceRacerCarLinkList()) {
+            racersOfThisRace.add(r.getRacer());
+        }
+
+        for (Racer r : racersOfThisRace) {
+            for (RaceRacerCarLink raceRacerCarLink : raceRacerCarLinkRepository.findByRacer(r)) {
+                if (raceRacerCarLink.getRace().getStatus() == Status.ONGOING) {
+                    throw new RacerNowBusyInAnotherRaceException("Racer " + r.getName() + " now is participating in another race with id "
+                            + raceRacerCarLink.getRace().getId() + " which is not finished yet.");
+                }
+            }
+        }
+
+        race.setStatus(Status.ONGOING);
+        raceRepository.save(race);
+        return new ResponseEntity<>(race, HttpStatus.OK);
     }
 
     /*MVC*/

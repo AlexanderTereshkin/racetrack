@@ -17,7 +17,7 @@ public class Team {
     private Long id;
 
     @NotNull(message = "You have to specify a name of this team.")
-    @Size(max = 22, message = "No more than 3 riders per team.")
+    @Size(max = 25, message = "Name of the team must be no more than 25 chars.")
     private String name;
 
     @OneToMany(mappedBy = "team", cascade = CascadeType.REMOVE)

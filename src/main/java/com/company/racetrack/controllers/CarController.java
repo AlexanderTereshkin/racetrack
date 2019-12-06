@@ -5,6 +5,7 @@ import com.company.racetrack.domain.Team;
 import com.company.racetrack.repositories.CarRepository;
 import com.company.racetrack.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -59,15 +60,15 @@ public class CarController {
 
     /*=========================Add new car=======================*/
     /*REST API*/
-    @PostMapping(path="/add-new-car/rest")
-    public @ResponseBody String addNewCar(@RequestParam String brand, @RequestParam String carModel, @RequestParam Float enginePower, @RequestParam Team team) {
-        Car newCar = new Car();
+    @PostMapping(path="/add-new-car/rest", consumes = "application/json", produces = "application/json")
+    public @ResponseBody Car addNewCar(@RequestBody Car car /*@RequestParam String brand, @RequestParam String carModel, @RequestParam Float enginePower, @RequestParam Team team*/) {
+        /*Car newCar = new Car();
         newCar.setBrand(brand);
         newCar.setCarModel(carModel);
         newCar.setEnginePower(enginePower);
-        newCar.setTeam(team);
-        carRepository.save(newCar);
-        return "Car saved.";
+        newCar.setTeam(team);*/
+        carRepository.save(car);
+        return car;
     }
 
     /*MVC*/

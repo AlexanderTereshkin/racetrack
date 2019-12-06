@@ -53,10 +53,14 @@ INSERT INTO tracks (name_of_track, track_status)
 
 
 
-/*INSERT INTO races (status, track_id)
+INSERT INTO races (status, track_id)
             VALUES('FINISHED', 1);
 
 
 
 INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
-            VALUES(1,2,2,120);*/
+            VALUES(1,3,3,120);
+INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
+            VALUES(1,2,2,120);
+INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
+            VALUES(1,1,1,120);
