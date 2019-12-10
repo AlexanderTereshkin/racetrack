@@ -1,7 +1,10 @@
 package com.company.racetrack.controllers;
 
 import com.company.racetrack.domain.Team;
+import com.company.racetrack.repositories.LogCustomRepository;
 import com.company.racetrack.repositories.TeamRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,11 +23,15 @@ import javax.validation.Valid;
 @RequestMapping(path="/teams")
 public class TeamController {
 
+    //private static final Logger LOGGER = LoggerFactory.getLogger(TeamController.class);
+
     private TeamRepository teamRepository;
+    private LogCustomService logCustomService;
 
     @Autowired
-    public TeamController(TeamRepository teamRepository) {
+    public TeamController(TeamRepository teamRepository, LogCustomService logCustomService) {
         this.teamRepository = teamRepository;
+        this.logCustomService = logCustomService;
     }
 
     @ModelAttribute(name = "team")
@@ -41,6 +48,9 @@ public class TeamController {
     }*/
     @GetMapping(path="/", consumes = "application/json")
     public ResponseEntity<Iterable<Team>> getAllTeams() {
+        //LOGGER.info("Example log from " + TeamController.class.getSimpleName());
+        logCustomService.setLog("Was called a method getAllTeams() of class " + TeamController.class.getSimpleName());
+
         HttpHeaders responseHeaders = new HttpHeaders();
         //return new ResponseEntity<>(teamRepository.findAll(), responseHeaders, HttpStatus.OK);
         return ResponseEntity.ok().headers(responseHeaders).body(teamRepository.findAll());

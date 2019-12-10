@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--<springProperty name="spring.datasource.driverClassName" source="spring.datasource.driverClassName"/>
+    <springProperty name="spring.datasource.url" source="spring.datasource.url"/>
+    <springProperty name="spring.datasource.username" source="spring.datasource.username"/>
+    <springProperty name="spring.datasource.password" source="spring.datasource.password"/>-->
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!--<appender name="db" class="ch.qos.logback.classic.db.DBAppender">
+        <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
+            <driverClass>${spring.datasource.driverClassName}</driverClass>
+            <url>${spring.datasource.url}</url>
+            <user>${spring.datasource.username}</user>
+            <password>${spring.datasource.password}</password>
+        </connectionSource>
+    </appender>-->
+
+    <!-- the level of the root level is set to DEBUG by default. -->
+    <root level="TRACE">
+        <appender-ref ref="stdout" />
+        <!--<appender-ref ref="db" />-->
+    </root>
+
+    <root level="INFO">
+        <appender-ref ref="stdout" />
+        <!--<appender-ref ref="db" />-->
+    </root>
+</configuration>
