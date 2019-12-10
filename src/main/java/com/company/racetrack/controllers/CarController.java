@@ -29,7 +29,8 @@ public class CarController {
     /*=========================Find all cars====================*/
     /*REST API*/
     @GetMapping(path="/rest")
-    public @ResponseBody Iterable<Car> getAllCars() {
+    @ResponseBody
+    public Iterable<Car> getAllCars() {
         return carRepository.findAll();
     }
 
@@ -45,7 +46,8 @@ public class CarController {
     /*=========================Find car by ID====================*/
     /*REST API*/
     @GetMapping(value = "/info/{id}/rest")
-    public @ResponseBody Car getCar(@PathVariable(value ="id") Long id) {
+    @ResponseBody
+    public Car getCar(@PathVariable(value ="id") Long id) {
         return carRepository.findById(id).get();
     }
 
@@ -61,7 +63,8 @@ public class CarController {
     /*=========================Add new car=======================*/
     /*REST API*/
     @PostMapping(path="/add-new-car/rest", consumes = "application/json", produces = "application/json")
-    public @ResponseBody Car addNewCar(@RequestBody Car car /*@RequestParam String brand, @RequestParam String carModel, @RequestParam Float enginePower, @RequestParam Team team*/) {
+    @ResponseBody
+    public Car addNewCar(@RequestBody Car car /*@RequestParam String brand, @RequestParam String carModel, @RequestParam Float enginePower, @RequestParam Team team*/) {
         /*Car newCar = new Car();
         newCar.setBrand(brand);
         newCar.setCarModel(carModel);
@@ -95,7 +98,8 @@ public class CarController {
     /*=========================Delete car========================*/
     /*REST API*/
     @DeleteMapping("/delete/{id}/rest")
-    public @ResponseBody String deleteCar(@PathVariable(value ="id") Long id) {
+    @ResponseBody
+    public String deleteCar(@PathVariable(value ="id") Long id) {
         carRepository.deleteById(id);
         return "Car was deleted";
     }

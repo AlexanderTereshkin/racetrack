@@ -42,7 +42,8 @@ public class RaceController {
     /*=========================Find all races=========================*/
     /*REST API*/
     @GetMapping(path="/rest")
-    public @ResponseBody Iterable<Race> getRaces() {
+    @ResponseBody
+    public Iterable<Race> getRaces() {
         return raceRepository.findAll();
     }
 
@@ -58,7 +59,8 @@ public class RaceController {
     /*=========================Find race by ID=========================*/
     /*REST API*/
     @GetMapping(value = "/info/{id}/rest")
-    public @ResponseBody Race getRace(@PathVariable(value ="id") Long id) {
+    @ResponseBody
+    public Race getRace(@PathVariable(value ="id") Long id) {
         return raceRepository.findById(id).get();
     }
 
@@ -72,10 +74,11 @@ public class RaceController {
 
     /*=========================Find all races for one racer=========================*/
     /*REST API*/
-    @GetMapping(path="/list-by-racer/rest")
-    public @ResponseBody Iterable<Race> getRacesForRacer(@RequestParam Racer racer) {
+    @GetMapping(path="/list-by-racer/{id}", consumes = "application/json")
+    @ResponseBody
+    public Iterable<Race> getRacesForRacer(@PathVariable(value = "id") Long id) {
         List<Race> raceList = new ArrayList<>();
-        for (RaceRacerCarLink r : raceRacerCarLinkRepository.findRacesByRacer(racer)) {
+        for (RaceRacerCarLink r : raceRacerCarLinkRepository.findRacesByRacer(racerRepository.findById(id).get())) {
             raceList.add(r.getRace());
         }
         return raceList;
@@ -86,7 +89,8 @@ public class RaceController {
     /*=========================Find all races for one racer by one car=========================*/
     /*REST API*/
     @GetMapping(path="/list-by-racer-by-car/rest")
-    public @ResponseBody Iterable<Race> getRacesForRacer(@RequestParam Racer racer, @RequestParam Car car) {
+    @ResponseBody
+    public Iterable<Race> getRacesForRacer(@RequestParam Racer racer, @RequestParam Car car) {
         List<Race> raceList = new ArrayList<>();
         for (RaceRacerCarLink r : raceRacerCarLinkRepository.findRacesByRacerByCar(racer, car)) {
             raceList.add(r.getRace());
@@ -99,7 +103,8 @@ public class RaceController {
     /*=========================Add new race=========================*/
     /*REST API*/
     @PostMapping(path="/add-new-race/rest")
-    public @ResponseBody String addNewRace(@RequestParam Track track) {
+    @ResponseBody
+    public String addNewRace(@RequestParam Track track) {
         Race race = new Race();
         race.setTrack(track);
         race.setStatus(Status.CREATED);
@@ -133,7 +138,8 @@ public class RaceController {
     /*=========================Add new participant to race=========================*/
     /*REST API*/
     @PostMapping(path="/add-new-participant/rest")
-    public @ResponseBody String addNewParticipant(@RequestParam Race race, @RequestParam Racer racer, @RequestParam Car car) {
+    @ResponseBody
+    public String addNewParticipant(@RequestParam Race race, @RequestParam Racer racer, @RequestParam Car car) {
         if (raceRacerCarLinkRepository.findRacerByRace(race, racer) == racer.getId()) {
             return "This racer is already set to this race. Choose another.";
         }
@@ -177,36 +183,6 @@ public class RaceController {
 
     /*=========================Start the race=========================*/
     /*REST API*/
-    /*@PutMapping(path="/start/{id}/rest")
-    public @ResponseBody Race startRace(@PathVariable(value = "id") Long id) {
-        Race race = raceRepository.findById(id).get();
-
-        if (race.getStatus() != Status.CREATED) {
-            return race;
-        }
-        if (race.getRaceRacerCarLinkList().size() < 3) {
-            return race;
-        }
-
-        List<Racer> racersOfThisRace = new ArrayList<>();
-
-        for (RaceRacerCarLink r : race.getRaceRacerCarLinkList()) {
-            racersOfThisRace.add(r.getRacer());
-        }
-
-        for (Racer r : racersOfThisRace) {
-            for (RaceRacerCarLink raceRacerCarLink : raceRacerCarLinkRepository.findByRacer(r)) {
-                if (raceRacerCarLink.getRace().getStatus() == Status.ONGOING) {
-                    return race;
-                }
-            }
-        }
-
-        race.setStatus(Status.ONGOING);
-        raceRepository.save(race);
-        return race;
-    }*/
-
     @PutMapping(path="/start/{id}/rest")
     public ResponseEntity<Race> startRace(@PathVariable(value = "id") Long id) throws StartRaceFailedException{
         Race race = raceRepository.findById(id).get();
@@ -250,7 +226,8 @@ public class RaceController {
     /*=========================Finish the race=========================*/
     /*REST API*/
     @PutMapping(path="/finish/{id}/rest")
-    public @ResponseBody String finishRace(@PathVariable(value = "id") Long id) {
+    @ResponseBody
+    public String finishRace(@PathVariable(value = "id") Long id) {
         Race race = raceRepository.findById(id).get();
 
         if (race.getStatus() == Status.ONGOING) {

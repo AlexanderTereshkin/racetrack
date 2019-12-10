@@ -27,8 +27,9 @@ public class RacerController {
 
     /*=========================Find all racers=========================*/
     /*REST API*/
-    @GetMapping(path="/rest")
-    public @ResponseBody Iterable<Racer> getAllRacers() {
+    @GetMapping(consumes = "application/json")
+    @ResponseBody
+    public Iterable<Racer> getAllRacers() {
         return racerRepository.findAll();
     }
 
@@ -44,7 +45,8 @@ public class RacerController {
     /*=========================Find all racers by team=========================*/
     /*REST API*/
     @GetMapping(path="/list-by-team/rest")
-    public @ResponseBody Iterable<Racer> getAllRacersByTeam(@RequestParam Team team) {
+    @ResponseBody
+    public Iterable<Racer> getAllRacersByTeam(@RequestParam Team team) {
         return racerRepository.findRacerByTeam(team);
     }
     /*=================================================================*/
@@ -53,7 +55,8 @@ public class RacerController {
     /*=========================Find racer by ID=========================*/
     /*REST API*/
     @GetMapping(value = "/info/{id}/rest")
-    public @ResponseBody Racer getRacer(@PathVariable(value ="id") Long id) {
+    @ResponseBody
+    public Racer getRacer(@PathVariable(value ="id") Long id) {
         return racerRepository.findById(id).get();
     }
 
@@ -69,7 +72,8 @@ public class RacerController {
     /*=========================Add new racer=========================*/
     /*REST API*/
     @PostMapping(path="/add-new-racer/rest")
-    public @ResponseBody String addNewRacer(@RequestParam String name, @RequestParam Team team) {
+    @ResponseBody
+    public String addNewRacer(@RequestParam String name, @RequestParam Team team) {
         Racer newRacer = new Racer();
         newRacer.setName(name);
         newRacer.setTeam(team);
@@ -104,7 +108,8 @@ public class RacerController {
     /*=========================Delete racer=========================*/
     /*REST API*/
     @DeleteMapping("/delete/{id}/rest")
-    public @ResponseBody String deleteRacer(@PathVariable(value ="id") Long id) {
+    @ResponseBody
+    public String deleteRacer(@PathVariable(value ="id") Long id) {
         racerRepository.deleteById(id);
         return "Racer was deleted";
     }

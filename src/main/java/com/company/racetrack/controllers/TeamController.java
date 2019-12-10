@@ -3,6 +3,13 @@ package com.company.racetrack.controllers;
 import com.company.racetrack.domain.Team;
 import com.company.racetrack.repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +35,24 @@ public class TeamController {
 
     /*=========================Find all teams====================*/
     /*REST API*/
-    @GetMapping(path="/rest")
+    /*@GetMapping(path="/rest")
     public @ResponseBody Iterable<Team> getAllTeams() {
         return teamRepository.findAll();
+    }*/
+    @GetMapping(path="/", consumes = "application/json")
+    public ResponseEntity<Iterable<Team>> getAllTeams() {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        //return new ResponseEntity<>(teamRepository.findAll(), responseHeaders, HttpStatus.OK);
+        return ResponseEntity.ok().headers(responseHeaders).body(teamRepository.findAll());
     }
+
+    @GetMapping(path="/page", consumes = "application/json")
+    public ResponseEntity<Iterable<Team>> getAllTeams(@PageableDefault(page = 0, size = 2, sort = "name", direction = Sort.Direction.DESC) Pageable pageable) {
+        //pageable = PageRequest.of(0, 5, Sort.by("name").ascending());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        return ResponseEntity.ok().headers(responseHeaders).body(teamRepository.findAll(pageable));
+    }
+
     /*MVC*/
     @GetMapping
     public String getAllTeams(Model model) {
@@ -43,10 +64,12 @@ public class TeamController {
 
     /*=========================Find team by ID====================*/
     /*REST API*/
-    @GetMapping(value = "/info/{id}/rest")
-    public @ResponseBody Team getTeam(@PathVariable(value ="id") Long id) {
+    @GetMapping(value = "/info/{id}", consumes = "application/json")
+    @ResponseBody
+    public Team getTeam(@PathVariable(value ="id") Long id) {
         return teamRepository.findById(id).get();
     }
+
     /*MVC*/
     @GetMapping(path="/info/{id}")
     public String getTeam(@PathVariable(value = "id") Long id, Model model) {
@@ -59,7 +82,8 @@ public class TeamController {
     /*=========================Add new team======================*/
     /*REST API*/
     @PostMapping(path="/add-new-team/rest")
-    public @ResponseBody Team addNewTeam(@RequestBody Team team/*@RequestParam String name*/) {
+    @ResponseBody
+    public Team addNewTeam(@RequestBody Team team/*@RequestParam String name*/) {
         /*Team team = new Team();
         team.setName(name);*/
         teamRepository.save(team);
@@ -86,7 +110,8 @@ public class TeamController {
     /*=========================Edit team=========================*/
     /*REST API*/
     @PutMapping(path="/edit/{id}/rest")
-    public @ResponseBody Team editTeam(@PathVariable(value = "id") Long id, @RequestParam String name) {
+    @ResponseBody
+    public Team editTeam(@PathVariable(value = "id") Long id, @RequestParam String name) {
         Team team = teamRepository.findById(id).get();
         team.setName(name);
         teamRepository.save(team);
@@ -114,7 +139,8 @@ public class TeamController {
     /*=========================Delete team=========================*/
     /*REST API*/
     @DeleteMapping("/delete/{id}/rest")
-    public @ResponseBody String deleteTeam(@PathVariable(value ="id") Long id) {
+    @ResponseBody
+    public String deleteTeam(@PathVariable(value ="id") Long id) {
         teamRepository.deleteById(id);
         return "Team was deleted";
     }

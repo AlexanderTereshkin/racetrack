@@ -55,12 +55,21 @@ INSERT INTO tracks (name_of_track, track_status)
 
 INSERT INTO races (status, track_id)
             VALUES('FINISHED', 1);
+INSERT INTO races (status, track_id)
+            VALUES('FINISHED', 3);
 
 
 
 INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
-            VALUES(1,3,3,120);
+            VALUES(1,3,3,110);
 INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
             VALUES(1,2,2,120);
 INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
-            VALUES(1,1,1,120);
+            VALUES(1,1,1,130);
+
+INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
+            VALUES(2,3,3,110);
+INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
+            VALUES(2,2,2,120);
+INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
+            VALUES(2,1,1,130);
