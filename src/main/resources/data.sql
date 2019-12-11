@@ -73,3 +73,6 @@ INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
             VALUES(2,2,2,120);
 INSERT INTO race_racer_car (race_id, racer_id, car_id, result_time)
             VALUES(2,1,1,130);
+
+INSERT INTO users (username, password)
+            VALUES('alex', '$2a$12$EVgqzaAW5le32On8jjEW1.IseoMv.JQyyZw.uq2IxLr8zDpMFoCdm');
