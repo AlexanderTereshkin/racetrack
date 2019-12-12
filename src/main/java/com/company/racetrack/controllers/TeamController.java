@@ -1,13 +1,10 @@
 package com.company.racetrack.controllers;
 
 import com.company.racetrack.domain.Team;
-import com.company.racetrack.repositories.LogCustomRepository;
+import com.company.racetrack.log.LogAdditional;
 import com.company.racetrack.repositories.TeamRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -27,6 +24,10 @@ public class TeamController {
 
     private TeamRepository teamRepository;
     private LogCustomService logCustomService;
+
+    @Autowired
+    //@Qualifier("logToFile")
+    private LogAdditional logAdditional;
 
     @Autowired
     public TeamController(TeamRepository teamRepository, LogCustomService logCustomService) {
@@ -77,6 +78,7 @@ public class TeamController {
     @GetMapping(value = "/info/{id}", consumes = "application/json")
     @ResponseBody
     public Team getTeam(@PathVariable(value ="id") Long id) {
+        logAdditional.logTo("Select method getTeam() from controller " + TeamController.class.getSimpleName());
         return teamRepository.findById(id).get();
     }
 

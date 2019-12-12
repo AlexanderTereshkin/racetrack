@@ -12,8 +12,6 @@ public class LogCustomService {
     @Autowired
     private LogCustomRepository logCustomRepository;
 
-
-
     public void setLog(String message) {
         LogCustom logCustom = new LogCustom();
         logCustom.setMessage(new Date() + " Log: " + message);
