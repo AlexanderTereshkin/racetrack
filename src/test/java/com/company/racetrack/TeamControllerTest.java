@@ -31,17 +31,17 @@ public class TeamControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private TeamController teamController;
-
     /*@MockBean
+    private TeamController teamController;*/
+
+    @MockBean
     private TeamRepository teamRepository;
 
     @MockBean
     private LogCustomService logCustomService;
 
     @MockBean
-    private LogAdditional logAdditional;*/
+    private LogAdditional logAdditional;
 
     @Test
     public void testGetListOfTeams() throws Exception {
